@@ -26,18 +26,8 @@ namespace Test_2
                 Console.WriteLine("Press Enter to return to main menu...");
                 input = Console.ReadLine();
 
-                if (input == "")
-                {
-                    Console.Clear();
-                    menu();
-
-
-                }
-                else
-                {
-                    Environment.Exit(0);
-
-                }
+                Console.Clear();
+                menu();
 
 
 
@@ -226,5 +216,4 @@ namespace Test_2
 
     }
 }
-
 
