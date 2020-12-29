@@ -1,0 +1,230 @@
+using System;
+
+namespace Test_2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            menu();
+        }
+        public static void menu()
+        {
+            Console.WriteLine("1) New Game");
+            Console.WriteLine("2) About the author");
+            Console.WriteLine("3) Exit");
+
+            string input = Console.ReadLine();
+
+
+
+
+            if (input == "1")
+            {
+                newgame();
+
+                Console.WriteLine("Press Enter to return to main menu...");
+                input = Console.ReadLine();
+
+                if (input == "")
+                {
+                    Console.Clear();
+                    menu();
+
+
+                }
+                else
+                {
+                    Environment.Exit(0);
+
+                }
+
+
+
+            }
+            else if (input == "2")
+            {
+                abouttheauthor();
+
+                Console.WriteLine("Press Enter to return to main menu...");
+                input = Console.ReadLine();
+
+                Console.Clear();
+                menu();
+
+
+
+
+            }
+            else if (input == "3")
+            {
+                Console.Clear();
+                Console.WriteLine("Are you sure you want to quit? [y/n]");
+                input = Console.ReadLine();
+                if (input == "y" || input=="Y")
+                {
+                    Environment.Exit(0);
+
+                }
+                else
+                {
+                    Console.Clear();
+                    menu();
+                }
+
+            }
+            else
+            {
+                Console.Clear();
+                menu();
+            }
+
+
+
+
+
+
+
+
+        }
+
+        public static void newgame()
+        {
+            Console.Clear();
+            int mymove;
+
+
+            string[] fieldStates = new string[9];
+
+            for (int i = 0; i < 9; i++)
+            {
+                fieldStates[i] = " ";
+            }
+
+
+            Console.WriteLine("Welcome to tic-tac-toe!");
+
+            Console.WriteLine();
+            Console.WriteLine($" {fieldStates[0]} | {fieldStates[1]} | {fieldStates[2]}");
+            Console.WriteLine("---+---+---");
+            Console.WriteLine($" {fieldStates[3]} | {fieldStates[4]} | {fieldStates[5]}");
+            Console.WriteLine("---+---+---");
+            Console.WriteLine($" {fieldStates[6]} | {fieldStates[7]} | {fieldStates[8]}");
+
+            int moves = 9;
+            while (moves > 0)
+            {
+                
+
+                if (moves % 2 == 1)
+                {
+                    Console.Write("X's move >");
+                }
+                else
+                {
+                    Console.Write("O's move >");
+                }
+
+                mymove = Convert.ToInt32(Console.ReadLine());
+                while ((mymove < 0 || mymove > 8) || fieldStates[mymove] != " ")
+                {
+                    Console.WriteLine("Illegal move! Try again.");
+
+                    if (moves % 2 == 1)
+                    {
+                        Console.Write("X's move >");
+                    }
+                    else
+                    {
+                        Console.Write("O's move >");
+                    }
+
+                    mymove = Convert.ToInt32(Console.ReadLine());
+                }
+
+                if (moves % 2 == 1)
+                {
+                    fieldStates[mymove] = "X";
+                }
+                else
+                {
+                    fieldStates[mymove] = "O";
+                }
+
+                Console.WriteLine();
+                Console.WriteLine($" {fieldStates[0]} | {fieldStates[1]} | {fieldStates[2]}");
+                Console.WriteLine("---+---+---");
+                Console.WriteLine($" {fieldStates[3]} | {fieldStates[4]} | {fieldStates[5]}");
+                Console.WriteLine("---+---+---");
+                Console.WriteLine($" {fieldStates[6]} | {fieldStates[7]} | {fieldStates[8]}");
+
+                moves -= 1;
+                if (checkBoard(fieldStates))
+                {
+                    break;
+                }
+
+            }
+
+            
+            Console.WriteLine("Game Over!");
+
+
+
+
+
+
+        }
+        public static void abouttheauthor()
+        {
+            Console.Clear();
+            Console.WriteLine("The author of this game is Ege Aktas.");
+
+        }
+
+        public static bool checkBoard(string[] board)
+        {
+
+            bool winner = false;
+            
+
+            for (int i = 0; i < 3; i++)
+            {
+            
+                if (board[i * 3] == board[(i * 3) + 1] && board[i * 3] == board[(i * 3) + 2] && board[i*3]!= " ")
+                {
+                
+                    Console.WriteLine("The Winner is " + board[i*3]);
+                    winner = true;
+                    return winner;
+                }
+                if (board[i] == board[i + 3] && board[i] == board[i + 6] && board[i] != " ")
+                {
+                   
+                    Console.WriteLine("The Winner is " + board[i]);
+                    winner = true;
+                    return winner;
+                }
+            }
+
+            if (board[0] == board[4] && board[0] == board[8] && board[0] != " ")
+            {
+              
+                Console.WriteLine("The Winner is " + board[0]);
+                winner = true;
+                return winner;
+            }
+            if (board[2] == board[4] && board[2] == board[6] && board[2] != " ")
+            {
+          
+                Console.WriteLine("The Winner is " + board[2]);
+                winner = true;
+                return winner;
+            }
+            return winner;
+        }
+
+    }
+}
+
+
